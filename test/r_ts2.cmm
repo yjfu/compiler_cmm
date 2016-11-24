@@ -1,0 +1,11 @@
+int main(){
+	real b;
+	b=1;
+	if(b>1){
+		b=b-1;
+	}
+	else{
+		b=b+1;
+	}
+	return 0;
+}
