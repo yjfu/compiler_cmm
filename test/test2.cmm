@@ -1,0 +1,11 @@
+int main(){
+	int a;
+	a=4;
+	while(a==1){
+		a=2;
+	}
+	if(a<>2){
+		int b;
+		b=4;
+	}
+}

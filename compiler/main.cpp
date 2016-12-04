@@ -9,14 +9,16 @@
 #include <iostream>
 #include "LexicalAnalyser.h"
 #include "SyntacticAnalyser.h"
-
+#include "SemanticAnalyser.h"
 int main(int argc, const char * argv[]) {
 	// insert code here...
 	SyntacticAnalyser sa("cmm.protocol");
-    LexicalAnalyser la("r_ts1.cmm");
-    if(la.success&&sa.analyse(la))
+    LexicalAnalyser la("writepro.cmm");
+    if(la.success&&sa.analyse(la)) {
         sa.print_tree();
-
+        //SemanticAnalyser analyser(sa);
+        //getchar();
+    }
 
 
 	//以下为词法分析器测试

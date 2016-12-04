@@ -1,0 +1,7 @@
+
+int main(){
+	int b;
+	real c;
+	read b;
+	write c;
+}
