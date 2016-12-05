@@ -52,6 +52,10 @@ void SemanticAnalyser::process_node(node* n){
             this->process_n_write_stmt(n);
             break;
         }
+        case n_ret_stmt:{
+            this->process_n_ret_stmt(n);
+            break;
+        }
     }
 }
 void SemanticAnalyser::process_program(node *n) {
@@ -87,11 +91,10 @@ void SemanticAnalyser::process_n_fun_decl(node *n) {
     process_node(n->sub_node[3]);
     //分析语句n_stmt_list
     process_node(n->sub_node[6]);
+    //可以在这里分析中间代码,看看能否return
     //分析完此函数,此函数符号表出栈
     this->id_table.pop_back();
-    //观察此时代码段最后一句return是否与设定相同
 
-    //this->code[code_point-1]
 }
 void SemanticAnalyser::process_n_para_list(node *n) {
     if(n->sub_node[0]->symbol.type==s_null){
@@ -460,7 +463,7 @@ int SemanticAnalyser::have_id(string id) {
     }
     return -1;
 }
-//返回id的类型
+//返回id的类型,
 int SemanticAnalyser::id_type(string id){
     int last_table=(int)this->id_table.size()-1;
     for(int i = last_table;i>=0;i--){
@@ -472,7 +475,56 @@ int SemanticAnalyser::id_type(string id){
 }
 
 void SemanticAnalyser::process_n_ret_stmt(node*n){
-
+    string id_name;
+    int type=0;//这里的type是IDType枚举类型,但是只用来区分是int还是real,不用来区分是id,函数,还是常数
+    int addr=-1;//如果是常数,那么addr==-1
+    Obj obj=this->process_n_obj(n->sub_node[1]);
+    if(obj.addr==-1)return;//分析obj时已经出错,不必再继续了
+    if(obj.is_real){type=a_real_var;}
+    else if(obj.is_int){type=a_int_var;}
+    else{
+        //是个变量,数组,或者函数
+        if(id_type(obj.id)==a_function){
+            //先查看这个地址是不是来源于一个函数,如果是则检查其返回值
+            if(id_type(obj.id)==a_function){
+                int return_type=this->id_table[0].table[obj.id].return_type;
+                if(return_type==s_int){type=a_int_var;}
+                else {type=a_real_var;}
+            }
+            else if(id_type(obj.id)==a_real_var||id_type(obj.id)==a_real_list){
+                type=a_real_var;
+            }
+            else if(id_type(obj.id)==a_int_var||id_type(obj.id)==a_int_list){
+                type=a_int_var;
+            }
+        }
+        addr=obj.addr;
+    }
+    //检查返回类型是不是正确的
+    vector<string>&all_func_name=this->id_table[0].order;
+    string func_name=all_func_name[all_func_name.size()-1];
+    int func_return_type=this->id_table[0].table[func_name].return_type;
+    if((func_return_type==s_int&&type==a_real_var)||
+            (func_return_type==s_real&&type==a_int_var)){
+        //类型不匹配
+        this->wp->process(wrong_return_value,n);
+        return;
+    }
+    //生成四元式
+    quaternion q;
+    q.op="return";
+    if(addr==-1){
+        //返回值是个常数
+        if(obj.is_int)q.a.is_int=1;
+        else q.a.is_real=1;
+        q.a.value=obj.value;
+    }
+    else{
+        q.a.is_addr=1;
+        q.a.addr=addr;
+    }
+    this->code.push_back(q);
+    this->code_point++;
 }
 void SemanticAnalyser::process_n_decl_stmt(node*n){
     mID id;
@@ -543,8 +595,54 @@ void SemanticAnalyser::process_n_write_stmt(node*n){
     this->code_point++;
 }
 void SemanticAnalyser::process_n_if_stmt(node*n){
-    //作用域要衔接
-    //       相对地址要加一个偏移量
+    //为了分析生成四元式的过程中不同的if,else,while的作用域不产生冲突
+    //用不同的id_table来存储同一函数中不同的if,else,while的变量
+    //但是id_table的number_of_id字段记录的是处理四元式时函数栈帧的数据的顶部的地址
+    //所以这个地址不应该是从0开始的,而应该是从之前开始的
+
+    //创建一个新的id_table
+    IDTable if_table;
+    //改变地址偏移量
+    int pos = (int)this->id_table.size()-1;
+    if_table.number_of_id=this->id_table[pos].number_of_id;
+    this->id_table.push_back(if_table);
+
+    //分析n_e_exp
+    Inequity eq=process_n_e_exp(n->sub_node[2]);
+    //计算总共经历了多少语句
+    //生成四元式并将其加入code
+    //处理语句
+
+    //分析完成后不用同时更新上一层的地址,因为这里的数据都是局部变量,不能被外界调用
+}
+void process_eq_and_obj(double *eq_v,int *eq_a,Obj *obj){
+    if(obj->is_int||obj->is_real){
+        //是一个值
+        *eq_v=obj->value;
+    }
+    else{
+        *eq_a=obj->addr;
+    }
+}
+Inequity SemanticAnalyser::process_n_e_exp(node *n) {
+    Obj left=this->process_n_obj(n->sub_node[0]);
+    Obj right=this->process_n_obj(n->sub_node[2]);
+    Inequity eq;
+    if(left.addr==-1||right.addr==-1){
+        //分析左部或右部时出错
+        eq.op=0;
+        return eq;
+    }
+    //处理左部和右部
+    process_eq_and_obj(&(eq.left_value),&(eq.left_addr),&left);
+    process_eq_and_obj(&(eq.right_value),&(eq.right_addr),&right);
+    //查看比较运算符是什么
+    int type=n->sub_node[1]->sub_node[0]->symbol.type;
+    if(type==s_bigger)eq.op='>';
+    else if(type==s_smaller)eq.op='<';
+    else if(type==s_notequal)eq.op='!';
+    else if(type==s_equal)eq.op='=';
+    return eq;
 }
 void SemanticAnalyser::process_n_while_stmt(node*n){
 //注意作用域的地址偏移问题

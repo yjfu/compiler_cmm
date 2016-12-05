@@ -7,8 +7,15 @@
 #define COMPILER_SEMANTICANALYSER_H
 #include "SyntacticAnalyser.h"
 #include "WrongProcesser.h"
+enum IDType{
+    a_function=1,
+    a_real_var=2,
+    a_int_var=3,
+    a_int_list=4,
+    a_real_list=5
+};
 struct mID{
-    int type;
+    IDType type;
     string name;
     //函数属性
     vector<mID> para_list;
@@ -27,16 +34,44 @@ struct IDTable{
     vector<string> order;
     int number_of_id;
 };
+struct Inequity{
+    char op;//>,<,=,!
+    //等于-1则说明是值比较
+    Inequity(){
+        left_addr=-1;
+        right_addr=-1;
+    }
+    int left_addr;
+    int right_addr;
+    double left_value;
+    double right_value;
+};
 struct q_contain{
+    q_contain(){
+        is_compare=0;
+        is_addr=0;
+        is_func=0;
+        is_real=0;
+        is_int=0;
+    }
+    //标志是否是一个比较
+    bool is_compare;
     //标志是address还是值
-    bool is_addr=0;
+    bool is_addr;
     //标志是否是函数
-    bool is_func=0;
-    bool is_real=0;
-    bool is_int=0;
+    bool is_func;
+    //如果是值,那么是int还是real
+    bool is_real;
+    bool is_int;
+
+    //函数属性
     string func_name;
+    //函数和变量共有的属性
     int addr;
+    //值属性
     double value;
+    //比较属性
+    Inequity compare;
 };
 struct quaternion{
     //(op,a,b,c)
@@ -46,16 +81,13 @@ struct quaternion{
     q_contain c;
 };
 
-enum IDType{
-    a_function=1,
-    a_real_var=2,
-    a_int_var=3,
-    a_int_list=4,
-    a_real_list=5
-};
 struct Obj{
-    bool is_real=0;
-    bool is_int=0;
+    Obj(){
+        is_real=0;
+        is_int=0;
+    }
+    bool is_real;
+    bool is_int;
     int addr;
     double value;
     string id;
@@ -92,9 +124,10 @@ private://节点处理函数
     void process_n_real_plist(node*n,node*fun_id);
     void process_n_real_plist_q(node*n,node*fun_id,int para_num);
     int id_type(string id);
-    Obj process_a_param(node*n);
     int have_id(string id);
+    Obj process_a_param(node*n);
     Obj process_n_obj(node*n);
+    Inequity process_n_e_exp(node*n);
 };
 
 
