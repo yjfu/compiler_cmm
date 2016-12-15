@@ -20,11 +20,19 @@ enum Errorno{
     use_a_value_as_list=9,
     use_function_like_a_value_or_list=10,
     wrong_var_type=11,
-    cannot_read_or_write_a_list_or_function=12
+    cannot_be_reform=12,
+    function_may_cannot_return=13,
+    too_many_or_to_less_function_para=14
+};
+enum Errorno_run{
+    no_main_function=1,
+    wrong_addr_access_or_the_value_is_not_assign=2,
+    devide_zero=3,
 };
 class WrongProcesser {
 public:
-    void process(int errorno,node*n);
+    void process(Errorno errorno,node*n);
+    void process_run(Errorno_run errorno_run);
 };
 
 

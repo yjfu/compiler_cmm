@@ -5,6 +5,9 @@
 
 #include "WrongProcesser.h"
 
-void WrongProcesser::process(int errorno,node*n) {
+void WrongProcesser::process(Errorno errorno,node*n) {
+
+}
+void WrongProcesser::process_run(Errorno_run errorno_run){
 
 }
