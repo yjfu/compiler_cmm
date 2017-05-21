@@ -1,0 +1,27 @@
+int f(int a,real b){
+	int c;
+	c=a-1;
+	return c;
+}
+int main(){
+	real a;
+	int b;
+	int c[5];
+	a=1.5;
+	b=3;
+	c[3]=6;
+	c[2]=1;
+	c[4]=(a+b)/c[b];
+	c[call f(b,a)]=c[3];
+	if(a>0.5){
+	write a;
+	}
+	else{
+	write b;
+	}
+	while(b>1){
+	b=b-1;
+	write b;
+	}
+	return 1;
+}

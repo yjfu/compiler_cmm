@@ -1,0 +1,3 @@
+real main(){
+	return 1;
+}

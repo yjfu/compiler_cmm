@@ -1,0 +1,7 @@
+real fun(){
+	return 1.5;
+}
+int main(){
+	int a[5];
+	return a[call fun()];
+}

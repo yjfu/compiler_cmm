@@ -1,0 +1,10 @@
+int f(int a){
+	a=a-5;
+	if(a>0){return call f(a);}
+	else{return a;}
+}
+int main(){
+	int a;
+	read a;
+	return call f(a);
+}

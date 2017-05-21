@@ -1,0 +1,4 @@
+int main(){
+	read 3.4;
+	return 1;
+}

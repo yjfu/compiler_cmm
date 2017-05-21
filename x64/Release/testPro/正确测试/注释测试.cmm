@@ -1,0 +1,8 @@
+/*commit
+happy
+int main*/int main()/*hehe*/{
+	int a;
+	a=5;
+	write a;
+	return 0;
+}

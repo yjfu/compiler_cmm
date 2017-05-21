@@ -1,0 +1,12 @@
+int fun(int a,real b){
+	return 1;
+}
+real foo(){
+	return 1.5;
+}
+int main(){
+	int a;
+	real b;
+	a=call fun(b,5.5);
+	return a;
+}

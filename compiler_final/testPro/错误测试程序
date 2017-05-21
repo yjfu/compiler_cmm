@@ -1,0 +1,25 @@
+wt_sem1.cmm  重复声明的函数
+
+wt_sem2.cmm  重复声明的参数
+
+wt_sem3.cmm  重复声明的变量
+
+wt_sem4.cmm  错误的返回值（返回变量）
+wt_sem5.cmm  错误的返回值（返回常量）
+wt_sem6.cmm  错误的返回值（返回函数调用）
+
+wt_sem7.cmm  函数未声明
+
+wt_sem8.cmm  数组或变量未声明
+
+wt_sem9.cmm  数组下标为real（下标是常数）
+wt_sem10.cmm 数组下标为real（下标是变量）
+wt_sem11.cmm 数组下标为real（下标是函数）
+
+wt_sem12.cmm 参数类型错误（常数）
+wt_sem13.cmm 参数类型错误（变量）
+wt_sem14.cmm 参数类型错误（函数）
+
+wt_sem15.cmm 像操作变量一样操作数组
+
+wt_sem16.cmm 像操作数组一样操作变量

@@ -1,0 +1,4 @@
+int main(){
+	call fun(1,3);
+	return 3;
+}

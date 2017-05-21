@@ -1,0 +1,5 @@
+int main(real b){
+	int a[5];
+	write a[b];
+	return a[1];
+}

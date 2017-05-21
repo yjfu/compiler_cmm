@@ -1,0 +1,61 @@
+四元式
+
+call function(a,b,c);
+
+(=,n,a,_),n为目标地址(最外侧的地址)，a为实参a的地址或值
+(=,n+1,b,_)
+(=,n+2,c,_)
+(call,function,_,paramater_num)
+这里需要进行实参与虚参的结合，结合完成后应该把上面为实参分配的三个地址回收，以保证函数返回的地址正好是最后一个地址
+
+
+
+read a;
+
+(read,n,_,_)
+
+
+
+write a;
+
+(write,n,_,_)
+
+
+
+
+reaturn a;
+
+(return,a,_,_)
+返回地址就是弹出函数栈以后进入的最顶端的栈帧的最后一个地址
+a可能是地址或者值
+
+
+
+if(a>b){aaaaaa}else{bbbbb}
+
+(jif,a>b,k+m+1,_)		第k句,若a<=b就跳到k+m+1
+(aaa)				|
+(aaa)				|m句
+...					|
+(jump,_,k+m+n+1,_)	|第k+m句
+
+(bbb)				|第k+m+1句
+(bbb)				|n句
+...					|
+(other)				第k+m+n+1句
+
+
+
+while(a>b){cccccc}
+(jif,a>b,m+k+2,_)		第m句
+ccc					|
+ccc					|
+ccc					|k句
+...					|
+(jump,_,m,_)
+
+
+
+a=b+c
+(+,b,c,addr)
+(=,a,addr,_) 这里addr是个地址，但某些情况下，当处理右部的时候可能会出现是值的情况，所以处理时要检查

@@ -1,0 +1,10 @@
+int a(int b){
+	int b;
+	b=4;	
+	if(b>4){
+		return 3;
+	}
+	while(b>4){
+		return 6;
+	}
+}

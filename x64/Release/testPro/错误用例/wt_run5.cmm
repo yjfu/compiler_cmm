@@ -1,0 +1,7 @@
+int main(){
+	int a;
+	a=5;
+	real b[4];
+	b[a]=5.1;
+	return 4;
+}

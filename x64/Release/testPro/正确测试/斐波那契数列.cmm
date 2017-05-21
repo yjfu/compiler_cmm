@@ -1,0 +1,31 @@
+int add(int a,int b){
+	int c;
+	c=a+b;
+	return c;
+}
+int f(int n){
+	if(n<3){return 1;}
+	else {
+		int n1,n2;
+		n1=n-1;
+		n2=n1-1;
+		/*测试函数的嵌套调用与递归*/
+		return call add(call f(n1),call f(n2));
+	}
+}
+int main(){
+	int a,b;
+	/*
+	读取a的值，
+	输出a个斐波那契数
+	*/
+	read a;
+	b=1;
+	/*如果a输入非法，直接结束*/
+	if(a<0){return 1;}
+	while(a>b){
+		write call f(b);
+		b=b+1;
+	}
+	return 0;
+}

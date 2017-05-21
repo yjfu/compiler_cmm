@@ -1,0 +1,10 @@
+real foo(real a){
+	int a;
+	return a;
+}
+int main(){
+	real b[4];
+	read a;
+	b[b[3]]=5.6;
+	return call foo( );
+}

@@ -1,0 +1,6 @@
+int main(){
+	int a@b;
+	int _b;
+	int b_;
+	int a,b,c;
+}

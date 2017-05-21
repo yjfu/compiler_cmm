@@ -1,0 +1,7 @@
+int fun(){
+	return 1;
+}
+int main(){
+	read call fun();
+	return 1;
+}

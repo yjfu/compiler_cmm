@@ -1,0 +1,9 @@
+int main(){
+	int i;
+	read i;
+	while(i<>0){
+		write i;
+		i=i-1;
+	}
+	return i;
+}

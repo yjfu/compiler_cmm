@@ -1,0 +1,77 @@
+program--|--n_fun_decl_list--|--     n_fun_decl--|--       n_type_f--|--          s_int
+         |                   |                   |--             id
+         |                   |                   |--          s_lsp
+         |                   |                   |--    n_para_list--|--     n_para_dec--|--       n_type_v--|--          s_int
+         |                   |                   |                   |                   |--             id
+         |                   |                   |                   |--  n_para_list_q--|--              $
+         |                   |                   |--          s_rsp
+         |                   |                   |--          s_lbp
+         |                   |                   |--    n_stmt_list--|--         n_stmt--|--     n_exp_stmt--|--             id
+         |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |--       s_assign
+         |                   |                   |                   |                   |                   |--            n_e--|--            n_t--|--            n_f--|--          n_obj--|--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |--          n_t_q--|--              $
+         |                   |                   |                   |                   |                   |                   |--          n_e_q--|--        s_minus
+         |                   |                   |                   |                   |                   |                   |                   |--            n_t--|--            n_f--|--          n_obj--|--           inum
+         |                   |                   |                   |                   |                   |                   |                   |                   |--          n_t_q--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |--          n_e_q--|--              $
+         |                   |                   |                   |                   |--         s_semi
+         |                   |                   |                   |--    n_stmt_list--|--         n_stmt--|--      n_if_stmt--|--           s_if
+         |                   |                   |                   |                   |                   |                   |--          s_lsp
+         |                   |                   |                   |                   |                   |                   |--        n_e_exp--|--          n_obj--|--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |--      n_compare--|--       s_bigger
+         |                   |                   |                   |                   |                   |                   |                   |--          n_obj--|--           inum
+         |                   |                   |                   |                   |                   |                   |--          s_rsp
+         |                   |                   |                   |                   |                   |                   |--          s_lbp
+         |                   |                   |                   |                   |                   |                   |--    n_stmt_list--|--         n_stmt--|--     n_ret_stmt--|--       s_return
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |--          n_obj--|--    n_call_stmt--|--         s_call
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--          s_lsp
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--   n_real_plist--|--          n_obj--|--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |-- n_real_plist_q--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--          s_rsp
+         |                   |                   |                   |                   |                   |                   |                   |                   |--         s_semi
+         |                   |                   |                   |                   |                   |                   |                   |--    n_stmt_list--|--              $
+         |                   |                   |                   |                   |                   |                   |--          s_rbp
+         |                   |                   |                   |                   |                   |                   |--    n_else_stmt--|--         s_else
+         |                   |                   |                   |                   |                   |                   |                   |--          s_lbp
+         |                   |                   |                   |                   |                   |                   |                   |--    n_stmt_list--|--         n_stmt--|--     n_ret_stmt--|--       s_return
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--          n_obj--|--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |--         s_semi
+         |                   |                   |                   |                   |                   |                   |                   |                   |--    n_stmt_list--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |--          s_rbp
+         |                   |                   |                   |                   |--    n_stmt_list--|--              $
+         |                   |                   |--          s_rbp
+         |                   |--n_fun_decl_list--|--     n_fun_decl--|--       n_type_f--|--          s_int
+         |                   |                   |                   |--             id
+         |                   |                   |                   |--          s_lsp
+         |                   |                   |                   |--    n_para_list--|--              $
+         |                   |                   |                   |--          s_rsp
+         |                   |                   |                   |--          s_lbp
+         |                   |                   |                   |--    n_stmt_list--|--         n_stmt--|--    n_decl_stmt--|--       n_type_v--|--          s_int
+         |                   |                   |                   |                   |                   |                   |--             id
+         |                   |                   |                   |                   |                   |                   |--      n_dfollow--|--              $
+         |                   |                   |                   |                   |                   |                   |--       n_decl_q--|--              $
+         |                   |                   |                   |                   |                   |--         s_semi
+         |                   |                   |                   |                   |--    n_stmt_list--|--         n_stmt--|--    n_read_stmt--|--         s_read
+         |                   |                   |                   |                   |                   |                   |                   |--          n_obj--|--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |                   |--         s_semi
+         |                   |                   |                   |                   |                   |--    n_stmt_list--|--         n_stmt--|--     n_ret_stmt--|--       s_return
+         |                   |                   |                   |                   |                   |                   |                   |                   |--          n_obj--|--    n_call_stmt--|--         s_call
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--          s_lsp
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--   n_real_plist--|--          n_obj--|--             id
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--         n_id_f--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |-- n_real_plist_q--|--              $
+         |                   |                   |                   |                   |                   |                   |                   |                   |                   |                   |--          s_rsp
+         |                   |                   |                   |                   |                   |                   |                   |--         s_semi
+         |                   |                   |                   |                   |                   |                   |--    n_stmt_list--|--              $
+         |                   |                   |                   |--          s_rbp
+         |                   |                   |--n_fun_decl_list--|--              $
+         |--              #
+         
